@@ -1,0 +1,143 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.problem-list {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.problem-item {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.problem-item h3 {
+    margin: 0;
+    color: #89cff0; /* Blue accent */
+}
+
+.problem-item p {
+    margin: 5px 0;
+}
+
+.search-bar {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 1px solid #333;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.problem-details {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+}
+
+.problem-meta {
+    margin-bottom: 20px;
+    text-align: center; /* Center the buttons */
+}
+
+.problem-meta button {
+    padding: 10px 20px;
+    margin: 0 5px; /* Add margin between buttons */
+    background-color: #89cff0;
+    color: #121212;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.problem-sections {
+    flex: 2;
+    margin-right: 20px;
+    padding-right: 20px;
+    border-right: 1px solid #333; /* Add a separator */
+}
+
+.problem-section {
+    margin-bottom: 30px; /* Increase margin for spacing */
+}
+
+.problem-section h3 {
+    margin-bottom: 10px;
+    color: #89cff0; /* Blue accent for headings */
+}
+
+.problem-sidebar {
+    flex: 1;
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+.code-block {
+    background-color: #333;
+    padding: 15px; /* Increase padding */
+    border-radius: 5px;
+    white-space: pre-wrap;
+    font-family: monospace; /* Use monospace font for code */
+    line-height: 1.6; /* Improve line spacing */
+}
+
+.navbar {
+    background-color: #1e1e1e;
+    padding: 10px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #89cff0;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
