@@ -1,3 +1,4 @@
+// problems/sumOfPrimes2.js
 const sumOfPrimes2 = {
     id: "sumOfPrimes2",
     title: "Sum of Primes 2",

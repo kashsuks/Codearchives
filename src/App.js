@@ -1,17 +1,53 @@
-import React from 'react';
+// App.js
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProblemList from './components/ProblemList';
+import ProblemDetails from './components/ProblemDetails';
 import Navbar from './components/Navbar';
 import './styles.css';
 
 function App() {
+    const [problems, setProblems] = useState();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchProblems = async () => {
+            try {
+                const problemModules = await Promise.all([
+                    import('./problems/sumOfPrimes2'),
+                    import('./problems/reverseString'),
+                    // Add more problem imports here
+                ]);
+
+                const fetchedProblems = problemModules.map(module => module.default);
+                setProblems(fetchedProblems);
+                setLoading(false);
+            } catch (err) {
+                setError(err);
+                setLoading(false);
+            }
+        };
+
+        fetchProblems();
+    },);
+
+    if (loading) {
+        return <div>Loading problems...</div>;
+    }
+
+    if (error) {
+        return <div>Error loading problems: {error.message}</div>;
+    }
+
     return (
         <Router>
             <div className="App">
                 <Navbar />
                 <Routes>
-                    <Route path="/problems" element={<ProblemList />} /> {/* Route for /problems */}
-                    <Route path="/" element={<div />} /> {/* Empty default route */}
+                    <Route path="/problems" element={<ProblemList problems={problems} />} />
+                    <Route path="/problems/:problemId" element={<ProblemDetails problems={problems} />} />
+                    <Route path="/" element={<div />} />
                 </Routes>
             </div>
         </Router>

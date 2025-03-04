@@ -1,3 +1,4 @@
+// problems/reverseString.js
 const reverseString = {
     id: "reverseString",
     title: "Reverse a String",
@@ -11,7 +12,7 @@ const reverseString = {
     inputSpecification: "The first line contains a string S.",
     outputSpecification: "Print the reverse of the string S.",
     constraints: "1 <= |S| <= 1000",
-    subtasks:'',
+    subtasks:[],
     sampleInput: "hello",
     sampleOutput: "olleh"
 };

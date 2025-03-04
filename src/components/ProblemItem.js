@@ -1,3 +1,4 @@
+// components/ProblemItem.js
 import React from 'react';
 
 function ProblemItem({ problem, onClick }) {
@@ -7,11 +8,11 @@ function ProblemItem({ problem, onClick }) {
                 <h3>{problem.title}</h3>
                 <p>Category: {problem.category}</p>
                 <p>Points: {problem.points}</p>
-                <p>Difficulty: {problem.difficulty}</p> {/* You can keep this if needed */}
+                <p>Difficulty: {problem.difficulty}</p>
             </div>
             <div>
-                <p>Acceptance Rate: {problem.acceptanceRate}</p> {/* You can keep this if needed */}
-                <p>Users Solved: {problem.usersSolved}</p> {/* You can keep this if needed */}
+                <p>Acceptance Rate: {problem.acceptanceRate}</p>
+                <p>Users Solved: {problem.usersSolved}</p>
             </div>
         </div>
     );

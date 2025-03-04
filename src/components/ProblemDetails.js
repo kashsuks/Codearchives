@@ -1,11 +1,26 @@
+// components/ProblemDetails.js
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function ProblemDetails({ problem }) {
+function ProblemDetails({ problems }) {
+    const { problemId } = useParams();
+    const navigate = useNavigate();
+
+    const problem = problems.find(p => p.id === problemId);
+
+    if (!problem) {
+        return <div>Problem not found</div>;
+    }
+
+    const handleBackToList = () => {
+        navigate('/problems');
+    }
+
     return (
         <div className="problem-details">
+            <button onClick={handleBackToList}>Back to List</button>
             <div className="problem-sections">
                 <h2>{problem.title}</h2>
-
                 <div className="problem-section">
                     <h3>Input Specification</h3>
                     <p>{problem.inputSpecification}</p>
@@ -23,7 +38,7 @@ function ProblemDetails({ problem }) {
 
                 <div className="problem-section">
                     <h3>Subtasks</h3>
-                    {problem.subtasks.map((subtask, index) => (
+                    {problem.subtasks && problem.subtasks.map((subtask, index) => (
                         <div key={index}>
                             <h4>{subtask.title}</h4>
                             <p>{subtask.description}</p>
@@ -41,7 +56,6 @@ function ProblemDetails({ problem }) {
                     <pre className="code-block">{problem.sampleOutput}</pre>
                 </div>
             </div>
-
             <div className="problem-sidebar">
                 <div className="problem-meta">
                     <button className="view-pdf">View as PDF</button>
