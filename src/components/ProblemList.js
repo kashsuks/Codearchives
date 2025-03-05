@@ -12,6 +12,47 @@ function ProblemList({ problems }) {
         problem.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const getDifficultyColor = (difficulty) => {
+        if (1 <= difficulty && difficulty <= 2) {
+            return "grey";
+        } else if (2 < difficulty && difficulty <= 3) {
+            return "green";
+        } else if (3 < difficulty && difficulty <= 4) {
+            return "blue";
+        } else if (4 < difficulty && difficulty <= 5) {
+            return "pink";
+        } else if (5 < difficulty && difficulty <= 6) {
+            return "purple";
+        } else if (6 < difficulty && difficulty <= 7) {
+            return "yellow";
+        } else if (7 < difficulty && difficulty <= 8) {
+            return "red";
+        } else if (8 < difficulty && difficulty <= 9) {
+            return "red";
+        } else {
+            return "white";
+        }
+    };
+
+    const getDifficultyStyle = (difficulty) => {
+        const color = getDifficultyColor(difficulty);
+        if (7 < difficulty && difficulty <= 8) {
+            return {
+                border: '2px solid red',
+                color: 'white',
+                padding: '5px',
+                borderRadius: '5px',
+            };
+        } else {
+            return {
+                backgroundColor: color,
+                color: color === 'white' ? 'black' : 'white',
+                padding: '5px',
+                borderRadius: '5px',
+            };
+        }
+    };
+
     return (
         <div className="problem-list" style={{ display: 'flex', padding: '20px' }}>
             <div style={{ flex: 3 }}>
@@ -31,7 +72,9 @@ function ProblemList({ problems }) {
                                     <td style={{ padding: '15px' }}>{problem.title}</td>
                                     <td style={{ padding: '15px' }}>{problem.category}</td>
                                     <td style={{ padding: '15px' }}>{problem.points}</td>
-                                    <td style={{ padding: '15px' }}>{problem.difficulty}</td>
+                                    <td style={{ padding: '15px' }}>
+                                        <span style={getDifficultyStyle(problem.difficulty)}>{problem.difficulty}</span>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
