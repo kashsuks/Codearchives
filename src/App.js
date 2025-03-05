@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProblemList from './components/ProblemList';
 import ProblemDetails from './components/ProblemDetails';
 import Navbar from './components/Navbar';
+import HomePage from './components/HomePage'; // Import HomePage
 import './styles.css';
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
                 <Routes>
                     <Route path="/problems" element={<ProblemList problems={problems} />} />
                     <Route path="/problems/:problemId" element={<ProblemDetails problems={problems} />} />
-                    <Route path="/" element={<div />} />
+                    <Route path="/" element={<HomePage />} /> {/* Use HomePage as the default route */}
                 </Routes>
             </div>
         </Router>
