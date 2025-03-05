@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkcodearchives=self.webpackChunkcodearchives||[]).push([[466],{466:(t,i,e)=>{e.r(i),e.d(i,{default:()=>s});const s={id:1,title:"Sum of Primes 2",category:"Mathematics",points:5,timeLimit:"0.6s",memoryLimit:"64M",author:"Sob",problemType:"Ad-hoc",difficulty:3,inputSpecification:"...",outputSpecification:"...",constraints:"...",subtasks:[],sampleInput:"...",sampleOutput:"..."}}}]);
+//# sourceMappingURL=466.0c763201.chunk.js.map
