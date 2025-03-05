@@ -6,7 +6,7 @@ function ProblemDetails({ problems }) {
     const { problemId } = useParams();
     const navigate = useNavigate();
 
-    const problem = problems.find(p => p.id === problemId);
+    const problem = problems[problemId];
 
     if (!problem) {
         return <div>Problem not found</div>;

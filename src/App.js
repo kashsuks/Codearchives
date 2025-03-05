@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import './styles.css';
 
 function App() {
-    const [problems, setProblems] = useState();
+    const [problems, setProblems] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -15,12 +15,17 @@ function App() {
         const fetchProblems = async () => {
             try {
                 const problemModules = await Promise.all([
-                    import('./problems/sumOfPrimes2'),
-                    import('./problems/reverseString'),
+                    import('./problems/1'),
+                    import('./problems/2'),
                     // Add more problem imports here
                 ]);
 
-                const fetchedProblems = problemModules.map(module => module.default);
+                const fetchedProblems = {};
+                problemModules.forEach(module => {
+                    const problem = module.default;
+                    fetchedProblems[problem.id] = problem;
+                });
+
                 setProblems(fetchedProblems);
                 setLoading(false);
             } catch (err) {
@@ -30,7 +35,7 @@ function App() {
         };
 
         fetchProblems();
-    },);
+    }, []);
 
     if (loading) {
         return <div>Loading problems...</div>;

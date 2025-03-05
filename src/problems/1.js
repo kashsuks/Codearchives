@@ -1,12 +1,12 @@
-// problems/sumOfPrimes2.js
-const sumOfPrimes2 = {
-    id: "sumOfPrimes2",
+// problems/1.js
+const problem1 = {
+    id: 1,
     title: "Sum of Primes 2",
     category: "Mathematics",
     points: 5,
     timeLimit: "0.6s",
     memoryLimit: "64M",
-    author: "Sob",
+    author: "kashsuks",
     problemType: "Ad-hoc",
     inputSpecification: "The first line contains a single integer: Q.\nEach of the next Q lines contains two space-separated integers: A, B.",
     outputSpecification: "Output the answer to each question on a separate line.",
@@ -19,4 +19,4 @@ const sumOfPrimes2 = {
     sampleOutput: "2\n28\n75"
 };
 
-export default sumOfPrimes2;
+export default problem1;

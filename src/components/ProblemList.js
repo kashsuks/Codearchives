@@ -7,7 +7,9 @@ function ProblemList({ problems }) {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
-    const filteredProblems = problems.filter(problem =>
+    const problemArray = Object.values(problems);
+
+    const filteredProblems = problemArray.filter(problem =>
         problem.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
