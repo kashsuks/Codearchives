@@ -6,7 +6,7 @@ import axios from 'axios';
 function Navbar() {
     const clientId = 'Ov23livrApKARbCdh9BT'; // Your client ID
     const redirectUri = 'https://codearchives.vercel.app'; // Your frontend URL
-    const backendIp = '174.115.245.34'; // Corrected: Just the IP address
+    const backendIp = '174.115.245.34:5000'; // Corrected: Just the IP address
     const scope = 'user:email';
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}`;
     const location = useLocation();
@@ -18,7 +18,7 @@ function Navbar() {
 
         if (code) {
             // Send code to your backend
-            axios.get(`https://${backendIp}/auth/github/callback?code=${code}`) // Corrected: Removed port from backendIp
+            axios.get(`https://${backendIp}:5000/auth/github/callback?code=${code}`) // Corrected: Removed port from backendIp
                 .then(response => {
                     // Handle user data from backend
                     console.log(response.data);
