@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codearchives</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Codearchives</h1>
+        <nav>
+            <ul>
+                <li><a href="#" class="active" data-page="home">Home</a></li>
+                <li><a href="#" data-page="archive">Archive</a></li>
+                <li><a href="#" data-page="contests">Contests</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="page active">
+            <h2>Welcome to Codearchivese</h2>
+            <p>This is a simple problem archive system where you can browse programming problems.</p>
+            
+            <div class="instructions">
+                <h3>How to Manage Problems</h3>
+                <p>This simplified version allows you to:</p>
+                <ul>
+                    <li>Add new problems directly in the browser</li>
+                    <li>Export all problems to a JSON file</li>
+                    <li>Import problems from a JSON file</li>
+                </ul>
+                <p>All changes will persist in your browser during the current session. To save permanently, use the Export feature.</p>
+            </div>
+            
+            <div class="problem-format">
+                <h3>Problem Format</h3>
+                <pre>{
+  "id": "unique_problem_id",
+  "title": "Problem Title",
+  "difficulty": "easy|medium|hard",
+  "timeLimit": "1s",
+  "memoryLimit": "256MB",
+  "description": "Full problem description",
+  "inputSpec": "Input specification",
+  "outputSpec": "Output specification",
+  "samples": [
+    {
+      "input": "sample input",
+      "output": "expected output"
+    }
+  ],
+  "notes": "Additional notes (optional)"
+}</pre>
+            </div>
+        </section>
+
+        <section id="archive" class="page">
+            <h2>Codearchives</h2>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search problems...">
+                <select id="difficulty-filter">
+                    <option value="all">All Difficulties</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <button id="search-button">Search</button>
+            </div>
+            <div id="problem-list"></div>
+        </section>
+
+        <section id="contests" class="page">
+            <h2>Contests</h2>
+            <p>Contest functionality will be implemented later.</p>
+            <div id="contest-list">
+                <p>No contests available yet.</p>
+            </div>
+        </section>
+
+        <section id="problem-view" class="page">
+            <button id="back-to-archive">Back to Archive</button>
+            <div id="problem-content"></div>
+        </section>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

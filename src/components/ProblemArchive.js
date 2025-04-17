@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProblemCard from './ProblemCard';
 
-function ProblemArchive({ onProblemSelect }) {
+function ProblemArchive() {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState('all');
   const [selectedTags, setSelectedTags] = useState([]);
+  const [tagFilter, setTagFilter] = useState('all');
+  const navigate = useNavigate();
 
   // Function to list all problems in the /public/problems directory
   const loadProblems = async () => {
@@ -84,13 +87,19 @@ function ProblemArchive({ onProblemSelect }) {
     setDifficultyFilter(e.target.value);
   };
 
-  const handleTagClick = (tag) => {
-    setSelectedTags(prev => {
-      if (prev.includes(tag)) {
-        return prev.filter(t => t !== tag);
-      }
-      return [...prev, tag];
-    });
+  const handleTagFilterChange = (e) => {
+    const selectedTag = e.target.value;
+    setTagFilter(selectedTag);
+    
+    if (selectedTag === 'all') {
+      setSelectedTags([]);
+    } else {
+      setSelectedTags([selectedTag]);
+    }
+  };
+
+  const handleProblemClick = (problemId) => {
+    navigate(`/problem/${problemId}`);
   };
 
   // Get all unique tags from problems
@@ -121,11 +130,23 @@ function ProblemArchive({ onProblemSelect }) {
 
   return (
     <section id="archive" className="page">
-      <h2>Problem Archive</h2>
+      <h2>Codearchives</h2>
       
-      <div className="filters-container" style={{ marginBottom: '20px' }}>
-        <div className="filter-section" style={{ marginBottom: '16px' }}>
-          <h4 style={{ margin: '0 0 8px 0' }}>Filter by Name:</h4>
+      <div className="filters-container" style={{ 
+        marginBottom: '20px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '16px',
+        alignItems: 'flex-end'
+      }}>
+        <div className="filter-section" style={{ flex: '1 1 200px' }}>
+          <label htmlFor="search-input" style={{ 
+            display: 'block', 
+            marginBottom: '8px',
+            fontWeight: 'bold'
+          }}>
+            Filter by Name:
+          </label>
           <input
             type="text"
             id="search-input"
@@ -136,14 +157,19 @@ function ProblemArchive({ onProblemSelect }) {
               padding: '8px',
               borderRadius: '4px',
               border: '1px solid #ddd',
-              width: '100%',
-              maxWidth: '300px'
+              width: '100%'
             }}
           />
         </div>
         
-        <div className="filter-section" style={{ marginBottom: '16px' }}>
-          <h4 style={{ margin: '0 0 8px 0' }}>Filter by Difficulty:</h4>
+        <div className="filter-section" style={{ flex: '1 1 200px' }}>
+          <label htmlFor="difficulty-filter" style={{ 
+            display: 'block', 
+            marginBottom: '8px',
+            fontWeight: 'bold'
+          }}>
+            Filter by Difficulty:
+          </label>
           <select 
             id="difficulty-filter" 
             value={difficultyFilter}
@@ -152,8 +178,7 @@ function ProblemArchive({ onProblemSelect }) {
               padding: '8px',
               borderRadius: '4px',
               border: '1px solid #ddd',
-              width: '100%',
-              maxWidth: '300px'
+              width: '100%'
             }}
           >
             <option value="all">All Difficulties</option>
@@ -166,26 +191,30 @@ function ProblemArchive({ onProblemSelect }) {
           </select>
         </div>
 
-        <div className="filter-section">
-          <h4 style={{ margin: '0 0 8px 0' }}>Filter by Topic:</h4>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div className="filter-section" style={{ flex: '1 1 200px' }}>
+          <label htmlFor="tag-filter" style={{ 
+            display: 'block', 
+            marginBottom: '8px',
+            fontWeight: 'bold'
+          }}>
+            Filter by Topic:
+          </label>
+          <select
+            id="tag-filter"
+            value={tagFilter}
+            onChange={handleTagFilterChange}
+            style={{
+              padding: '8px',
+              borderRadius: '4px',
+              border: '1px solid #ddd',
+              width: '100%'
+            }}
+          >
+            <option value="all">All Topics</option>
             {allTags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => handleTagClick(tag)}
-                style={{
-                  backgroundColor: selectedTags.includes(tag) ? '#0056b3' : '#007bff',
-                  color: '#ffffff',
-                  border: 'none',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                {tag}
-              </button>
+              <option key={tag} value={tag}>{tag}</option>
             ))}
-          </div>
+          </select>
         </div>
       </div>
 
@@ -201,7 +230,7 @@ function ProblemArchive({ onProblemSelect }) {
             <ProblemCard 
               key={problem.id} 
               problem={problem} 
-              onClick={() => onProblemSelect(problem)}
+              onClick={() => handleProblemClick(problem.id)}
             />
           ))}
         </div>

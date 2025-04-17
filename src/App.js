@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import './styles.css';
 import Home from './components/Home';
 import ProblemArchive from './components/ProblemArchive';
@@ -6,74 +7,37 @@ import ProblemView from './components/ProblemView';
 import Contests from './components/Contests';
 
 function App() {
-  const [activePage, setActivePage] = useState('home');
-  const [selectedProblem, setSelectedProblem] = useState(null);
-
-  const handleProblemSelect = (problem) => {
-    setSelectedProblem(problem);
-    setActivePage('problem-view');
-  };
-
-  const handleBackToArchive = () => {
-    setActivePage('archive');
-    setSelectedProblem(null);
-  };
-
   return (
-    <div className="app">
-      <header>
-        <h1>Problem Archive</h1>
-        <nav>
-          <ul>
-            <li>
-              <a 
-                href="#home" 
-                className={activePage === 'home' ? 'active' : ''}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActivePage('home');
-                }}
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#archive" 
-                className={activePage === 'archive' ? 'active' : ''}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActivePage('archive');
-                }}
-              >
-                Archive
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#contests" 
-                className={activePage === 'contests' ? 'active' : ''}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActivePage('contests');
-                }}
-              >
-                Contests
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <Router>
+      <div className="app">
+        <header>
+          <h1>Codearchives</h1>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/problem">Archive</Link>
+              </li>
+              <li>
+                <Link to="/contest">Contests</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-      <main>
-        {activePage === 'home' && <Home />}
-        {activePage === 'archive' && <ProblemArchive onProblemSelect={handleProblemSelect} />}
-        {activePage === 'contests' && <Contests />}
-        {activePage === 'problem-view' && selectedProblem && (
-          <ProblemView problem={selectedProblem} onBackClick={handleBackToArchive} />
-        )}
-      </main>
-    </div>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/problem" element={<ProblemArchive />} />
+            <Route path="/problem/:problemId" element={<ProblemView />} />
+            <Route path="/contest" element={<Contests />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 

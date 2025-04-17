@@ -1,4 +1,4 @@
-# Problem Archive
+# Codearchives
 
 A simple problem archive system similar to DMOJ, built with Next.js and TypeScript.
 
