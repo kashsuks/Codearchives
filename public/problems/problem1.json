@@ -1,0 +1,22 @@
+{
+    "id": "problem1",
+    "title": "Two Sum",
+    "difficulty": 5,
+    "timeLimit": "1s",
+    "memoryLimit": "256MB",
+    "tags": ["arrays", "strings", "dynamic-programming"],
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
+    "inputSpec": "First line contains two integers n (2 ≤ n ≤ 10^4) and target (-10^9 ≤ target ≤ 10^9). Second line contains n integers nums[i] (-10^9 ≤ nums[i] ≤ 10^9).",
+    "outputSpec": "Two integers representing the indices of the two numbers such that they add up to target.",
+    "samples": [
+      {
+        "input": "4 9\n2 7 11 15",
+        "output": "0 1"
+      },
+      {
+        "input": "3 6\n3 2 4",
+        "output": "1 2"
+      }
+    ],
+    "notes": "The indices are 0-indexed. You can return the answer in any order."
+  }
