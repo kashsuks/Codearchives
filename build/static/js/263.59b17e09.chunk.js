@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkcodearchives=self.webpackChunkcodearchives||[]).push([[263],{263:(t,e,i)=>{i.r(e),i.d(e,{default:()=>s});const s={id:2,title:"Reverse a String",category:"Strings",points:3,timeLimit:"0.2s",memoryLimit:"32M",author:"Jane Doe",problemType:"Standard Input/Output",difficulty:1,question:"...",inputSpecification:"...",outputSpecification:"...",constraints:"...",subtasks:[],sampleInput:"...",sampleOutput:"..."}}}]);
-//# sourceMappingURL=263.59b17e09.chunk.js.map
