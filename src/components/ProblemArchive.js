@@ -46,8 +46,40 @@ function ProblemArchive() {
         console.log('No index file found, trying to load individual problems');
       }
 
-      // If no index file, use hardcoded problem IDs to try
-      const problemIds = ['problem1', 'problem2', 'problem3'];
+      // If no index file, try to load problems directly
+      // First, try to get a list of problems from the server
+      try {
+        // Try to fetch a list of problems from the server
+        const response = await fetch('/api/problems');
+        if (response.ok) {
+          const problemIds = await response.json();
+          const loadedProblems = await Promise.all(
+            problemIds.map(async (id) => {
+              try {
+                const response = await fetch(`/problems/${id}.json`);
+                if (!response.ok) {
+                  console.error(`Problem ${id} not found`);
+                  return null;
+                }
+                const problem = await response.json();
+                return { ...problem, id };
+              } catch (err) {
+                console.error(`Error loading problem ${id}:`, err);
+                return null;
+              }
+            })
+          );
+          setProblems(loadedProblems.filter(p => p !== null));
+          setLoading(false);
+          return;
+        }
+      } catch (apiError) {
+        console.log('API endpoint not available, using fallback method');
+      }
+
+      // Fallback: Try to load a few common problem IDs
+      console.log('Using fallback method to load problems');
+      const problemIds = ['problem1', 'problem2', 'problem3', '1', '2', '3'];
       const loadedProblems = await Promise.all(
         problemIds.map(async (id) => {
           try {
@@ -66,7 +98,12 @@ function ProblemArchive() {
       );
       
       // Filter out nulls (problems that couldn't be loaded)
-      setProblems(loadedProblems.filter(p => p !== null));
+      const validProblems = loadedProblems.filter(p => p !== null);
+      setProblems(validProblems);
+      
+      if (validProblems.length === 0) {
+        setError('No problems found. Please make sure problem files exist in the /public/problems/ directory.');
+      }
     } catch (err) {
       setError('Failed to load problems. Make sure problems are in the /public/problems directory.');
       console.error('Error loading problems:', err);
