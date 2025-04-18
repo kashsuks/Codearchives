@@ -164,11 +164,15 @@ function ProblemView() {
       return;
     }
 
-    // For now, just display the code and test cases
-    setSubmissionResult({
-      code,
-      language,
-      testCases
+    // Navigate to submission page with the code and language
+    navigate(`/submission/${problemId}`, {
+      state: {
+        submission: {
+          code,
+          language,
+          timestamp: new Date().toISOString()
+        }
+      }
     });
   };
 

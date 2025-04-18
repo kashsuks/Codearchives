@@ -4,6 +4,7 @@ import './styles.css';
 import Home from './components/Home';
 import ProblemArchive from './components/ProblemArchive';
 import ProblemView from './components/ProblemView';
+import SubmissionView from './components/SubmissionView';
 import Contests from './components/Contests';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/problem" element={<ProblemArchive />} />
             <Route path="/problem/:problemId" element={<ProblemView />} />
+            <Route path="/submission/:problemId" element={<SubmissionView />} />
             <Route path="/contest" element={<Contests />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
