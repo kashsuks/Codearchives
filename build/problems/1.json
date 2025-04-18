@@ -1,0 +1,18 @@
+{
+    "id": "1",
+    "title": "Hello World",
+    "difficulty": 1,
+    "timeLimit": "1s",
+    "memoryLimit": "256MB",
+    "tags": ["string"],
+    "description": "Given no input, print 'Hello World'.",
+    "inputSpec": "No input",
+    "outputSpec": "Print a single line containing the string 'Hello World'.",
+    "samples": [
+      {
+        "input": "",
+        "output": "Hello World"
+      }
+    ],
+    "notes": "Use any method of fast I/O"
+  }

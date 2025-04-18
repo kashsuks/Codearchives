@@ -233,16 +233,20 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
 }
 
-.selected-file-name {
+.language-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
   font-size: 0.9rem;
-  color: #666;
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #333;
+  cursor: pointer;
 }
 
 .submit-button {
@@ -254,10 +258,20 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.2s;
+  margin-left: auto;
 }
 
 .submit-button:hover {
   background-color: #218838;
+}
+
+.selected-file-name {
+  font-size: 0.9rem;
+  color: #666;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .file-content-preview {
@@ -284,4 +298,107 @@
   line-height: 1.4;
   margin: 0;
   white-space: pre-wrap;
+}
+
+.code-editor-container {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submission-result {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.submission-result h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.result-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.result-details h4 {
+  margin: 0 0 10px 0;
+  color: #555;
+}
+
+.code-preview, .test-cases-preview {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.test-cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.test-case {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.test-case h5 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.test-case-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.test-case-details > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.test-case-details strong {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.test-case-details pre {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+  margin: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.code-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.code-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #444;
 } 

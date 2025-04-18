@@ -2,8 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { InlineMath, BlockMath } from 'react-katex';
+import AceEditor from 'react-ace';
 import 'katex/dist/katex.min.css';
 import './ProblemView.css';
+
+// Import Ace Editor modes and themes
+import 'brace/mode/python';
+import 'brace/theme/monokai';
+import 'brace/ext/language_tools';
 
 function ProblemView() {
   const { problemId } = useParams();
@@ -11,9 +17,10 @@ function ProblemView() {
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [fileContent, setFileContent] = useState(null);
-  const [showFileContent, setShowFileContent] = useState(false);
+  const [code, setCode] = useState('');
+  const [language, setLanguage] = useState('python');
+  const [testCases, setTestCases] = useState(null);
+  const [submissionResult, setSubmissionResult] = useState(null);
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -25,6 +32,21 @@ function ProblemView() {
         }
         const data = await response.json();
         setProblem(data);
+        
+        // Fetch test cases
+        try {
+          const testCasesResponse = await fetch(`/testcases/${problemId}.json`);
+          if (testCasesResponse.ok) {
+            const testCasesData = await testCasesResponse.json();
+            setTestCases(testCasesData.testCases);
+          } else {
+            console.warn('Test cases not found for problem', problemId);
+            setTestCases([]);
+          }
+        } catch (testCaseError) {
+          console.warn('Error fetching test cases:', testCaseError);
+          setTestCases([]);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -128,28 +150,26 @@ function ProblemView() {
     );
   };
 
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      
-      // Read the file content
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setFileContent(event.target.result);
-      };
-      reader.readAsText(file);
-    }
+  const handleCodeChange = (newCode) => {
+    setCode(newCode);
+  };
+
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
   };
 
   const handleSubmit = () => {
-    if (selectedFile && fileContent) {
-      // For now, just show the file content
-      setShowFileContent(true);
-      
-      // In the future, this will redirect to a status page
-      // navigate(`/submission-status/${problemId}`);
+    if (code.trim() === '') {
+      alert('Please write some code before submitting');
+      return;
     }
+
+    // For now, just display the code and test cases
+    setSubmissionResult({
+      code,
+      language,
+      testCases
+    });
   };
 
   if (loading) {
@@ -177,36 +197,7 @@ function ProblemView() {
   return (
     <div className="problem-view">
       <div className="problem-header">
-        <div className="header-content">
-          <h1 className="problem-title">{problem.title}</h1>
-          <div className="submit-section">
-            <h3>Submit Solution</h3>
-            <div className="file-upload">
-              <input
-                type="file"
-                id="python-file"
-                accept=".py"
-                onChange={handleFileSelect}
-              />
-              <div className="submit-controls">
-                <label htmlFor="python-file" className="file-upload-label">
-                  {selectedFile ? 'Submit' : 'Choose Python File'}
-                </label>
-                {selectedFile && (
-                  <>
-                    <span className="selected-file-name">{selectedFile.name}</span>
-                    <button 
-                      className="submit-button"
-                      onClick={handleSubmit}
-                    >
-                      Submit
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <h1 className="problem-title">{problem.title}</h1>
         <div className="problem-limits">
           <span>Time Limit: {problem.timeLimit || '1s'}</span>
           <span>Memory Limit: {problem.memoryLimit || '256MB'}</span>
@@ -281,10 +272,72 @@ function ProblemView() {
         </div>
       </div>
 
-      {showFileContent && fileContent && (
-        <div className="file-content-preview">
-          <h3>File Content Preview</h3>
-          <pre>{fileContent}</pre>
+      <div className="code-section">
+        <h2>Submit Your Solution</h2>
+        <div className="code-editor-container">
+          <AceEditor
+            mode="python"
+            theme="monokai"
+            onChange={handleCodeChange}
+            value={code}
+            name="code-editor"
+            editorProps={{ $blockScrolling: true }}
+            setOptions={{
+              enableBasicAutocompletion: true,
+              enableLiveAutocompletion: true,
+              enableSnippets: true
+            }}
+            width="100%"
+            height="300px"
+            fontSize={14}
+          />
+          <div className="submit-controls">
+            <select 
+              value={language} 
+              onChange={handleLanguageChange}
+              className="language-select"
+            >
+              <option value="python">Python</option>
+            </select>
+            <button 
+              className="submit-button"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {submissionResult && (
+        <div className="submission-result">
+          <h3>Submission Result</h3>
+          <div className="result-details">
+            <h4>Submitted Code:</h4>
+            <pre className="code-preview">{submissionResult.code}</pre>
+            <h4>Test Cases:</h4>
+            {submissionResult.testCases && submissionResult.testCases.length > 0 ? (
+              <div className="test-cases-list">
+                {submissionResult.testCases.map((testCase, index) => (
+                  <div key={index} className="test-case">
+                    <h5>Test Case {index + 1}: {testCase.description}</h5>
+                    <div className="test-case-details">
+                      <div>
+                        <strong>Input:</strong>
+                        <pre>{testCase.input}</pre>
+                      </div>
+                      <div>
+                        <strong>Expected Output:</strong>
+                        <pre>{testCase.output}</pre>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No test cases available for this problem.</p>
+            )}
+          </div>
         </div>
       )}
 
