@@ -12,6 +12,8 @@ function ProblemView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileContent, setFileContent] = useState(null);
+  const [showFileContent, setShowFileContent] = useState(false);
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -35,26 +37,6 @@ function ProblemView() {
 
   const handleBackClick = () => {
     navigate('/problems');
-  };
-
-  const handleFileSelect = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!selectedFile) return;
-
-    // Read and log file contents for debugging
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      console.log('File contents:', e.target.result);
-      // Navigate to status page
-      navigate(`/status/${problemId}`);
-    };
-    reader.readAsText(selectedFile);
   };
 
   // Convert numeric difficulty to text
@@ -146,6 +128,30 @@ function ProblemView() {
     );
   };
 
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      
+      // Read the file content
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFileContent(event.target.result);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (selectedFile && fileContent) {
+      // For now, just show the file content
+      setShowFileContent(true);
+      
+      // In the future, this will redirect to a status page
+      // navigate(`/submission-status/${problemId}`);
+    }
+  };
+
   if (loading) {
     return <div className="loading">Loading problem...</div>;
   }
@@ -182,21 +188,22 @@ function ProblemView() {
                 accept=".py"
                 onChange={handleFileSelect}
               />
-              {selectedFile ? (
-                <div className="submission-row">
-                  <span className="selected-file-name">{selectedFile.name}</span>
-                  <button 
-                    className="submit-button"
-                    onClick={handleSubmit}
-                  >
-                    Submit
-                  </button>
-                </div>
-              ) : (
+              <div className="submit-controls">
                 <label htmlFor="python-file" className="file-upload-label">
-                  Choose Python File
+                  {selectedFile ? 'Submit' : 'Choose Python File'}
                 </label>
-              )}
+                {selectedFile && (
+                  <>
+                    <span className="selected-file-name">{selectedFile.name}</span>
+                    <button 
+                      className="submit-button"
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -273,6 +280,13 @@ function ProblemView() {
           </div>
         </div>
       </div>
+
+      {showFileContent && fileContent && (
+        <div className="file-content-preview">
+          <h3>File Content Preview</h3>
+          <pre>{fileContent}</pre>
+        </div>
+      )}
 
       <button onClick={handleBackClick} className="back-button">
         Back to Problems

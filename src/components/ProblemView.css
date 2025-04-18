@@ -229,7 +229,7 @@
   background-color: #0056b3;
 }
 
-.submission-row {
+.submit-controls {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -238,11 +238,11 @@
 
 .selected-file-name {
   font-size: 0.9rem;
-  color: #555;
-  white-space: nowrap;
+  color: #666;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px;
+  white-space: nowrap;
 }
 
 .submit-button {
@@ -258,4 +258,30 @@
 
 .submit-button:hover {
   background-color: #218838;
+}
+
+.file-content-preview {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.file-content-preview h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.file-content-preview pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin: 0;
+  white-space: pre-wrap;
 } 

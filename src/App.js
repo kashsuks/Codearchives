@@ -5,7 +5,6 @@ import Home from './components/Home';
 import ProblemArchive from './components/ProblemArchive';
 import ProblemView from './components/ProblemView';
 import Contests from './components/Contests';
-import Status from './components/Status';
 
 function App() {
   return (
@@ -33,7 +32,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/problem" element={<ProblemArchive />} />
             <Route path="/problem/:problemId" element={<ProblemView />} />
-            <Route path="/status/:problemId" element={<Status />} />
             <Route path="/contest" element={<Contests />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
