@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import { InlineMath, BlockMath } from 'react-katex';
+import 'katex/dist/katex.min.css';
+import './ProblemView.css';
 
 function ProblemView() {
   const { problemId } = useParams();
@@ -7,21 +11,19 @@ function ProblemView() {
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const fetchProblem = async () => {
       try {
         setLoading(true);
         const response = await fetch(`/problems/${problemId}.json`);
-        
         if (!response.ok) {
-          throw new Error(`Problem ${problemId} not found`);
+          throw new Error('Problem not found');
         }
-        
         const data = await response.json();
         setProblem(data);
       } catch (err) {
-        console.error('Error loading problem:', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -32,7 +34,27 @@ function ProblemView() {
   }, [problemId]);
 
   const handleBackClick = () => {
-    navigate('/problem');
+    navigate('/problems');
+  };
+
+  const handleFileSelect = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedFile) return;
+
+    // Read and log file contents for debugging
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      console.log('File contents:', e.target.result);
+      // Navigate to status page
+      navigate(`/status/${problemId}`);
+    };
+    reader.readAsText(selectedFile);
   };
 
   // Convert numeric difficulty to text
@@ -48,6 +70,82 @@ function ProblemView() {
     return "Godly";
   };
 
+  // Format notes with proper line breaks and support for Markdown and equations
+  const formatNotes = (notes) => {
+    if (!notes) return '';
+    
+    // Process the notes to handle equations and Markdown
+    const processedNotes = notes.split('\\n').map(line => {
+      // Replace LaTeX-style equations with KaTeX components
+      // Inline equations: $...$
+      // Block equations: $$...$$
+      return line.replace(/\$\$(.*?)\$\$/g, (match, equation) => {
+        try {
+          return `<BlockMath math={${JSON.stringify(equation)}} />`;
+        } catch (e) {
+          console.error('Error parsing block equation:', e);
+          return match;
+        }
+      }).replace(/\$(.*?)\$/g, (match, equation) => {
+        try {
+          return `<InlineMath math={${JSON.stringify(equation)}} />`;
+        } catch (e) {
+          console.error('Error parsing inline equation:', e);
+          return match;
+        }
+      });
+    }).join('\n');
+    
+    return (
+      <ReactMarkdown
+        components={{
+          // Custom renderer for code blocks (backticks)
+          code: ({ node, inline, className, children, ...props }) => {
+            const match = /language-(\w+)/.exec(className || '');
+            return !inline && match ? (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            ) : (
+              <code className="variable-highlight" {...props}>
+                {children}
+              </code>
+            );
+          },
+          // Custom renderer for paragraphs to handle equations
+          p: ({ children }) => {
+            // Check if the paragraph contains an equation component
+            const hasEquation = React.Children.toArray(children).some(
+              child => typeof child === 'string' && (child.includes('<InlineMath') || child.includes('<BlockMath'))
+            );
+            
+            if (hasEquation) {
+              // Parse and render equations
+              const content = React.Children.toArray(children).map(child => {
+                if (typeof child === 'string') {
+                  // Replace equation placeholders with actual components
+                  return child
+                    .replace(/<InlineMath math={"(.*?)"} \/>/g, (_, equation) => (
+                      <InlineMath key={Math.random()} math={equation} />
+                    ))
+                    .replace(/<BlockMath math={"(.*?)"} \/>/g, (_, equation) => (
+                      <BlockMath key={Math.random()} math={equation} />
+                    ));
+                }
+                return child;
+              });
+              return <p>{content}</p>;
+            }
+            
+            return <p>{children}</p>;
+          }
+        }}
+      >
+        {processedNotes}
+      </ReactMarkdown>
+    );
+  };
+
   if (loading) {
     return <div className="loading">Loading problem...</div>;
   }
@@ -56,7 +154,7 @@ function ProblemView() {
     return (
       <div className="error">
         <p>{error}</p>
-        <button onClick={handleBackClick}>Back to Archive</button>
+        <button onClick={handleBackClick}>Back to Problems</button>
       </div>
     );
   }
@@ -65,64 +163,121 @@ function ProblemView() {
     return (
       <div className="error">
         <p>Problem not found</p>
-        <button onClick={handleBackClick}>Back to Archive</button>
+        <button onClick={handleBackClick}>Back to Problems</button>
       </div>
     );
   }
 
   return (
-    <section id="problem-view" className="page">
-      <button id="back-to-archive" onClick={handleBackClick}>
-        Back to Archive
-      </button>
-      
-      <div id="problem-content">
-        <h2>{problem.title}</h2>
-        <div className="problem-meta">
+    <div className="problem-view">
+      <div className="problem-header">
+        <div className="header-content">
+          <h1 className="problem-title">{problem.title}</h1>
+          <div className="submit-section">
+            <h3>Submit Solution</h3>
+            <div className="file-upload">
+              <input
+                type="file"
+                id="python-file"
+                accept=".py"
+                onChange={handleFileSelect}
+              />
+              {selectedFile ? (
+                <div className="submission-row">
+                  <span className="selected-file-name">{selectedFile.name}</span>
+                  <button 
+                    className="submit-button"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button>
+                </div>
+              ) : (
+                <label htmlFor="python-file" className="file-upload-label">
+                  Choose Python File
+                </label>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="problem-limits">
           <span>Time Limit: {problem.timeLimit || '1s'}</span>
           <span>Memory Limit: {problem.memoryLimit || '256MB'}</span>
-          <span>Difficulty: {getDifficultyText(problem.difficulty)}</span>
         </div>
-        
-        <div className="problem-section">
-          <h3>Description</h3>
-          <p>{problem.description}</p>
+        <div className="problem-meta">
+          <span className="difficulty" style={{ 
+            backgroundColor: problem.difficulty <= 2 ? '#4CAF50' : 
+                           problem.difficulty <= 4 ? '#8BC34A' : 
+                           problem.difficulty <= 6 ? '#FFC107' : 
+                           problem.difficulty <= 7 ? '#FF9800' : 
+                           problem.difficulty <= 9 ? '#F44336' : '#9C27B0',
+            color: 'white',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '0.9em'
+          }}>
+            {getDifficultyText(problem.difficulty)}
+          </span>
+          <span className="problem-id">Problem #{problem.id}</span>
         </div>
-        
-        <div className="problem-section">
-          <h3>Input Specification</h3>
-          <p>{problem.inputSpec}</p>
+      </div>
+
+      <div className="problem-content">
+        <div className="problem-description">
+          <h2>Description</h2>
+          <ReactMarkdown>{problem.description}</ReactMarkdown>
         </div>
-        
-        <div className="problem-section">
-          <h3>Output Specification</h3>
-          <p>{problem.outputSpec}</p>
+
+        <div className="problem-input">
+          <h2>Input Specification</h2>
+          <ReactMarkdown>{problem.inputSpec}</ReactMarkdown>
         </div>
-        
-        <div className="problem-section">
-          <h3>Sample Test Cases</h3>
-          {problem.samples && problem.samples.map((sample, index) => (
-            <div className="sample-case" key={index}>
+
+        <div className="problem-output">
+          <h2>Output Specification</h2>
+          <ReactMarkdown>{problem.outputSpec}</ReactMarkdown>
+        </div>
+
+        <div className="problem-samples">
+          <h2>Sample Test Cases</h2>
+          {problem.samples.map((sample, index) => (
+            <div key={index} className="sample-case">
+              <h3>Sample {index + 1}</h3>
               <div className="sample-input">
-                <h4>Sample Input {index + 1}</h4>
+                <h4>Input:</h4>
                 <pre>{sample.input}</pre>
               </div>
               <div className="sample-output">
-                <h4>Sample Output {index + 1}</h4>
+                <h4>Output:</h4>
                 <pre>{sample.output}</pre>
               </div>
             </div>
           ))}
         </div>
-        
-        {problem.notes && (
-          <div className="problem-section">
-            <h3>Notes</h3>
-            <p>{problem.notes}</p>
+
+        {problem.image && (
+          <div className="problem-image">
+            <h2>Visual Explanation</h2>
+            <img 
+              src={`/assets/problems/${problem.image}`} 
+              alt={`Visual explanation for ${problem.title}`}
+              className="problem-visual"
+            />
           </div>
         )}
+
+        <div className="problem-notes">
+          <h2>Notes</h2>
+          <div style={{ whiteSpace: 'pre-wrap' }}>
+            {formatNotes(problem.notes)}
+          </div>
+        </div>
       </div>
-    </section>
+
+      <button onClick={handleBackClick} className="back-button">
+        Back to Problems
+      </button>
+    </div>
   );
 }
 

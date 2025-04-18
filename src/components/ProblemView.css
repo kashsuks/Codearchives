@@ -1,0 +1,261 @@
+.problem-view {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.problem-header {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.problem-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+.problem-limits {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.problem-meta {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.problem-content {
+  line-height: 1.6;
+}
+
+.problem-content h2 {
+  font-size: 1.8rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.problem-content h3 {
+  font-size: 1.4rem;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.problem-content p {
+  margin-bottom: 15px;
+}
+
+/* Markdown styling */
+.problem-content ul, 
+.problem-content ol {
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+.problem-content li {
+  margin-bottom: 8px;
+}
+
+.problem-content blockquote {
+  border-left: 4px solid #ddd;
+  padding-left: 15px;
+  margin-left: 0;
+  color: #666;
+  font-style: italic;
+}
+
+/* Code and variable highlighting */
+.problem-content code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+}
+
+.problem-content .variable-highlight {
+  background-color: #e6f3ff;
+  color: #0066cc;
+  font-weight: 500;
+}
+
+/* Equation styling */
+.problem-content .katex {
+  font-size: 1.1em;
+}
+
+.problem-content .katex-display {
+  margin: 1.5em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Sample test cases */
+.sample-case {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sample-case h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.sample-case h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.sample-case pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Problem image styling */
+.problem-image {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.problem-visual {
+  width: 256px;
+  height: 256px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 15px auto;
+  display: block;
+}
+
+/* Back button */
+.back-button {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Loading and error states */
+.loading, .error {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.submit-section {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-width: 250px;
+}
+
+.submit-section h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.file-upload {
+  position: relative;
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.file-upload-label {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.file-upload-label:hover {
+  background-color: #0056b3;
+}
+
+.submission-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.selected-file-name {
+  font-size: 0.9rem;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.submit-button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+} 
