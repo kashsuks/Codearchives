@@ -1,0 +1,21 @@
+.problem-card {
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .problem-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .star-button {
+    transition: transform 0.2s ease;
+  }
+  
+  .star-button:hover {
+    transform: scale(1.2);
+  }
+  
+  .star-button:active {
+    transform: scale(0.9);
+  }  
