@@ -10,6 +10,7 @@ function ProblemArchive() {
   const [difficultyFilter, setDifficultyFilter] = useState('all');
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagFilter, setTagFilter] = useState('all');
+  const [showStarred, setShowStarred] = useState(false); // New state for Starred filter
   const navigate = useNavigate();
 
   // Function to list all problems in the /public/problems directory
@@ -135,6 +136,10 @@ function ProblemArchive() {
     }
   };
 
+  const toggleStarredFilter = () => {
+    setShowStarred((prev) => !prev); // Toggle Starred filter
+  };
+
   const handleProblemClick = (problemId) => {
     navigate(`/problem/${problemId}`);
   };
@@ -147,9 +152,9 @@ function ProblemArchive() {
     if (isNaN(Number(difficulty))) return difficulty;
     
     const diffNum = Number(difficulty);
-    if (diffNum <= 2) return "Really Easy";
-    if (diffNum <= 4) return "Easy";
-    if (diffNum <= 6) return "Normal";
+    if (diffNum === 1) return "Really Easy";
+    if (diffNum <= 3) return "Easy";
+    if (diffNum <= 5) return "Normal";
     if (diffNum <= 7) return "Hard";
     if (diffNum <= 9) return "Very Hard";
     return "Godly";
@@ -162,7 +167,8 @@ function ProblemArchive() {
                              problemDifficultyText === difficultyFilter;
     const matchesTags = selectedTags.length === 0 || 
                        (problem.tags && selectedTags.every(tag => problem.tags.includes(tag)));
-    return matchesSearch && matchesDifficulty && matchesTags;
+    const matchesStarred = !showStarred || problem.starred; // Include Starred filter
+    return matchesSearch && matchesDifficulty && matchesTags && matchesStarred;
   });
 
   return (
@@ -252,6 +258,23 @@ function ProblemArchive() {
               <option key={tag} value={tag}>{tag}</option>
             ))}
           </select>
+        </div>
+
+        <div className="filter-section" style={{ flex: '1 1 200px' }}>
+          <button
+            onClick={toggleStarredFilter}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '4px',
+              border: '1px solid #ddd',
+              backgroundColor: showStarred ? '#007BFF' : '#f8f9fa',
+              color: showStarred ? '#fff' : '#000',
+              cursor: 'pointer',
+              width: '100%'
+            }}
+          >
+            {showStarred ? 'Show All' : 'Starred'}
+          </button>
         </div>
       </div>
 

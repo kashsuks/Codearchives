@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function ProblemCard({ problem, onClick }) {
+  const [isStarred, setIsStarred] = useState(false);
+
+  useEffect(() => {
+    const starredProblems = JSON.parse(localStorage.getItem('starredProblems')) || [];
+    setIsStarred(starredProblems.includes(problem.id));
+  }, [problem.id]);
+
+  const toggleStar = (e) => {
+    e.stopPropagation();
+    const starredProblems = JSON.parse(localStorage.getItem('starredProblems')) || [];
+    if (isStarred) {
+      const updatedStars = starredProblems.filter(id => id !== problem.id);
+      localStorage.setItem('starredProblems', JSON.stringify(updatedStars));
+    } else {
+      starredProblems.push(problem.id);
+      localStorage.setItem('starredProblems', JSON.stringify(starredProblems));
+    }
+    setIsStarred(!isStarred);
+  };
+
   // Function to get color based on difficulty
   const getDifficultyColor = (difficulty) => {
     // Convert difficulty to text if it's a number
@@ -60,6 +80,7 @@ function ProblemCard({ problem, onClick }) {
 
   return (
     <div className="problem-card" onClick={onClick} style={{ 
+      position: 'relative',
       border: '1px solid #ddd', 
       borderRadius: '8px', 
       padding: '16px', 
@@ -67,6 +88,21 @@ function ProblemCard({ problem, onClick }) {
       cursor: 'pointer',
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
     }}>
+      <button
+        onClick={toggleStar}
+        style={{
+          position: 'absolute',
+          top: '8px',
+          right: '8px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: '20px',
+          color: isStarred ? 'gold' : 'gray'
+        }}
+      >
+        {isStarred ? '★' : '☆'}
+      </button>
       <h3 style={{ marginTop: 0, marginBottom: '12px' }}>{problem.title}</h3>
       
       {problem.tags && problem.tags.length > 0 && (
