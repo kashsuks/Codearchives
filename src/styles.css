@@ -1,230 +1,283 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+header h1 {
+  margin-bottom: 15px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+nav ul li a.active {
+  background-color: #0066cc;
+  color: white;
+}
+
+main {
+  padding: 20px 0;
+  flex: 1;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 20px 0 10px 0;
+}
+
+.instructions,
+.problem-format {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #0066cc;
+}
+
+.instructions ul {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.problem-format pre {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 14px;
+}
+
+.search-container {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+#search-input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#difficulty-filter {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#search-button {
+  padding: 8px 16px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #0052a3;
+}
+
+#problem-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.loading,
+.error,
+.no-problems {
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.error {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+.problem-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.problem-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.problem-card h3 {
+  margin-bottom: 10px;
+}
+
+.problem-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.difficulty {
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.85em;
+}
+
+.problem-card[data-difficulty="easy"] .difficulty {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.problem-card[data-difficulty="medium"] .difficulty {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.problem-card[data-difficulty="hard"] .difficulty {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+#back-to-archive {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#problem-content {
+  line-height: 1.8;
+}
+
+.problem-section {
+  margin-bottom: 20px;
+}
+
+.problem-section h3 {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 10px 0;
+  font-family: monospace;
+}
+
+.sample-case {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.sample-input,
+.sample-output {
+  padding: 10px;
+}
+
+.sample-input h4,
+.sample-output h4 {
+  margin-bottom: 5px;
+}
+
+.sample-input {
+  border-bottom: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+/* Footer styles */
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #0066cc;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #004999;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 15px;
   }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #333;
-  }
-  
-  .app {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  header {
-    padding: 20px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  header h1 {
-    margin-bottom: 15px;
-  }
-  
-  nav ul {
-    display: flex;
-    list-style: none;
-  }
-  
-  nav ul li {
-    margin-right: 20px;
-  }
-  
-  nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 4px;
-  }
-  
-  nav ul li a.active {
-    background-color: #0066cc;
-    color: white;
-  }
-  
-  main {
-    padding: 20px 0;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  h3 {
-    margin: 20px 0 10px 0;
-  }
-  
-  .instructions, .problem-format {
-    margin-top: 30px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-    border-left: 4px solid #0066cc;
-  }
-  
-  .instructions ul {
-    margin-left: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .problem-format pre {
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 4px;
-    overflow-x: auto;
-    font-size: 14px;
-  }
-  
-  .search-container {
-    display: flex;
-    margin-bottom: 20px;
-    gap: 10px;
-  }
-  
-  #search-input {
-    flex-grow: 1;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  #difficulty-filter {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  #search-button {
-    padding: 8px 16px;
-    background-color: #0066cc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  #search-button:hover {
-    background-color: #0052a3;
-  }
-  
-  #problem-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  .loading, .error, .no-problems {
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-    margin: 20px 0;
-  }
-  
-  .error {
-    color: #721c24;
-    background-color: #f8d7da;
-  }
-  
-  .problem-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .problem-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  
-  .problem-card h3 {
-    margin-bottom: 10px;
-  }
-  
-  .problem-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9em;
-    color: #666;
-  }
-  
-  .difficulty {
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.85em;
-  }
-  
-  .problem-card[data-difficulty="easy"] .difficulty {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .problem-card[data-difficulty="medium"] .difficulty {
-    background-color: #fff3cd;
-    color: #856404;
-  }
-  
-  .problem-card[data-difficulty="hard"] .difficulty {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  
-  #back-to-archive {
-    margin-bottom: 20px;
-    padding: 8px 16px;
-    background-color: #0066cc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  #problem-content {
-    line-height: 1.8;
-  }
-  
-  .problem-section {
-    margin-bottom: 20px;
-  }
-  
-  .problem-section h3 {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
-  }
-  
-  pre {
-    background-color: #f5f5f5;
-    padding: 15px;
-    border-radius: 4px;
-    overflow-x: auto;
-    margin: 10px 0;
-    font-family: monospace;
-  }
-  
-  .sample-case {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
-  .sample-input, .sample-output {
-    padding: 10px;
-  }
-  
-  .sample-input h4, .sample-output h4 {
-    margin-bottom: 5px;
-  }
-  
-  .sample-input {
-    border-bottom: 1px solid #ddd;
-    background-color: #f9f9f9;
-  }
+}

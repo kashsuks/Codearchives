@@ -1,10 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import './styles.css';
-import Home from './components/Home';
-import ProblemArchive from './components/ProblemArchive';
-import ProblemView from './components/ProblemView';
-import Contests from './components/Contests';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom"
+import "./styles.css"
+import Home from "./components/Home"
+import ProblemArchive from "./components/ProblemArchive"
+import ProblemView from "./components/ProblemView"
+import Contests from "./components/Contests"
 
 function App() {
   return (
@@ -36,9 +35,23 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
+
+        <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-name">Codearchives</div>
+            <div className="footer-links">
+              <a href="https://discord.gg/StmgUe24VN " target="_blank" rel="noopener noreferrer">
+                Discord
+              </a>
+              <a href="https://github.com/kashsuks/Codearchives" target="_blank" rel="noopener noreferrer">
+                Github
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
