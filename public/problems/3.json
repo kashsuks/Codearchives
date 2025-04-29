@@ -4,7 +4,7 @@
     "difficulty": 1,
     "timeLimit": "1s",
     "memoryLimit": "512MB",
-    "tags": ["math"],
+    "tags": ["string"],
     "description": "You just started a scorekeeping internship at Codearchives’ basketball team. It’s a very prestigious job, and you don’t want to lose it, but you’re also extremely lazy. So you don’t count the score. Instead, you count the number of free throws ( 1 point ) and field goals ( 2 or 3 points). So your job is to find the total points when given the different types of goals scored.",
     "inputSpec": "The input consists of 3 lines:\n  - The first line consists of the number of 1-pointers\n  - The second line consists of the number of 2-pointers\n   - The third line consists of the number of 3-pointers",
     "outputSpec": "Output one number, the total score, given the distribution of all the throws.",
