@@ -111,7 +111,7 @@ function ProblemArchive() {
 
       // Fallback: Try to load a few common problem IDs
       console.log("Using fallback method to load problems")
-      const problemIds = ["problem1", "problem2", "problem3", "1", "2", "3"]
+      const problemIds = ["problem1", "problem2", "problem3", "1", "2", "3", "4"]
       const loadedProblems = await Promise.all(
         problemIds.map(async (id) => {
           try {

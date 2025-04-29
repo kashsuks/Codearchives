@@ -1,0 +1,18 @@
+{
+    "id": "4",
+    "title": "Milk the Cow",
+    "difficulty": 5,
+    "timeLimit": "2s",
+    "memoryLimit": "512MB",
+    "tags": ["Dynamic Programming"],
+    "description": "You're a dairy farmer with `n` cows. Each cow can be milked once, which gives you a unique quality of milk that is quantified as profit. However, storing milk requires space, and your milk tank has a limited storage capacity of `c`.\nEach cow `i` has:\n`vᵢ`: the volume of milk it produces (in litres)\n`pᵢ`: the profit you get by selling its milk\nYou can only choose a subset of cows to milk, such that the total volume doesn't exceed `C`. Additionally, due to the reaction of other cows, you cannot milk two adjacent cows (i.e., if you milk cow `i`, you cannot milk cow `i-1` or `i+1`).\nYour task is determining the maximum profit you can obtain under these constraints.\n\n**Note: The testcases are made such that there will be no ties for the most optimal cows.**",
+    "inputSpec": "The first line will be two integers, `N` and `C`, separated by a single space.\nThe next `N` lines will each contain two integers, `vᵢ` and `pᵢ`, separated by a single space, where `i` represents the i’th cow.\n- `N` (1 ≤ `N` ≤ 10⁴): Number of cows\n- `C` (1 ≤ `C` ≤ 10⁴): Capacity of your milk storage tank.\n- `vᵢ` (1 ≤ `vᵢ` ≤ `C`): Volume of milk from cow `i`.\n- pᵢ (1 ≤ `pᵢ` ≤ 10⁴): Profit from cow `i`",
+    "outputSpec": "Print a single integer — the **maximum profit** you can achieve under the given constraints.",
+    "samples": [
+      {
+        "input": "5 10\n3 10 \n2 4\n5 7\n6 15\n4 8",
+        "output": "25"
+      }
+    ],
+    "notes": "You can milk cows 1 and 4 (0-based indexing), total volume = 3 + 6 = 9 ≤ 10, profit = 10 + 15 = 25. No other combination of cows (that are not adjacent) has a total profit higher than 25. The best option is cows 1 and 4, for a profit of 25."
+  }
