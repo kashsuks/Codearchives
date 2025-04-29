@@ -1,19 +1,18 @@
 {
     "id": "2",
-    "title": "Graphville's Roadblocks",
-    "difficulty": 5,
+    "title": "Whats the Score?",
+    "difficulty": 1,
     "timeLimit": "1s",
-    "memoryLimit": "512mb",
-    "tags": ["trees", "dfs", "subtree size", "graph"],
-    "description": "In the kingdom of Graphoria, there are `N` cities and `N - 1` bidirectional roads connecting them in a way that forms a tree. Each road has a toll associated with it. A roadblock is a special edge that, when removed, splits the tree into two disconnected components. The king wants to know the total toll value of all roadblocks that, if removed, would increase the size of the smaller component to at least `K` (where `K` ≤ N/2). In other words, for each edge, if removing it divides the tree into two components of sizes `s` and `N - s`, and `min(s, N - s)` ≥ `K`, add its toll to the final sum.",
-    "inputSpec": "First line: two integers `N` and `K` (2 ≤ `N` ≤ 2×10⁵, 1 ≤ `K` ≤ N/2)\nNext `N - 1` lines: each contains three integers `u`, `v`, and `t` — a road between cities u and v with toll t (1 ≤ u, v ≤ N, 1 ≤ t ≤ 10⁴)",
-    "outputSpec": "Output a single integer: the sum of tolls of all roadblocks that split the kingdom into valid parts as defined.",
-    "image": "2sample.png",
+    "memoryLimit": "512MB",
+    "tags": ["string"],
+    "description": "You just started a scorekeeping internship at Codearchives’ basketball team. It’s a very prestigious job, and you don’t want to lose it, but you’re also extremely lazy. So you don’t count the score. Instead, you count the number of free throws ( 1 point ) and field goals ( 2 or 3 points). So your job is to find the total points when given the different types of goals scored.",
+    "inputSpec": "The input consists of 3 lines:\n  - The first line consists of the number of 1-pointers\n  - The second line consists of the number of 2-pointers\n   - The third line consists of the number of 3-pointers",
+    "outputSpec": "Output one number, the total score, given the distribution of all the throws.",
     "samples": [
       {
-        "input": "6 2\n1 2 3\n1 3 2\n2 4 1\n2 5 4\n3 6 5",
-        "output": "12"
+        "input": "3\n7\n22",
+        "output": "83"
       }
     ],
-    "notes": "Removing edge: \n1-2 → components of size 3 and 3 → valid(add 3)\n1-3 → components of size 4 and 2 → valid (add 2)\n2-4 → components of size 5 and 1 → invalid\n2-5 → same → invalid\n3-6 → size 5 and 1 → invalid\nTotal toll = 3 + 2 + 7"
-}
+    "notes": "3 one-pointer’s = 3 points\n7 two-pointer’s = 7*2 points = 14 points\n22 three-pointer’s = 22*3 points = 66\nTotal = 3 + 14 + 66 = 83 points"
+  }
