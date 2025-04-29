@@ -4,6 +4,8 @@ import Home from "./components/Home"
 import ProblemArchive from "./components/ProblemArchive"
 import ProblemView from "./components/ProblemView"
 import Contests from "./components/Contests"
+import Mashups from "./components/Mashups"
+import ActiveMashup from "./components/ActiveMashup"
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
                 <Link to="/problem">Archive</Link>
               </li>
               <li>
+                <Link to="/mashups">Mashups</Link>
+              </li>
+              <li>
                 <Link to="/contest">Contests</Link>
               </li>
             </ul>
@@ -31,6 +36,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/problem" element={<ProblemArchive />} />
             <Route path="/problem/:problemId" element={<ProblemView />} />
+            <Route path="/mashups" element={<Mashups />} />
+            <Route path="/active-mashup/:mashupId" element={<ActiveMashup />} />
             <Route path="/contest" element={<Contests />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
