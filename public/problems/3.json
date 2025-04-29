@@ -1,18 +1,18 @@
 {
-    "id": "2",
-    "title": "Whats the Score?",
+    "id": "3",
+    "title": "Find the Dog",
     "difficulty": 1,
     "timeLimit": "1s",
     "memoryLimit": "512MB",
-    "tags": ["string"],
-    "description": "You just started a scorekeeping internship at Codearchives’ basketball team. It’s a very prestigious job, and you don’t want to lose it, but you’re also extremely lazy. So you don’t count the score. Instead, you count the number of free throws ( 1 point ) and field goals ( 2 or 3 points). So your job is to find the total points when given the different types of goals scored.",
-    "inputSpec": "The input consists of 3 lines:\n  - The first line consists of the number of 1-pointers\n  - The second line consists of the number of 2-pointers\n   - The third line consists of the number of 3-pointers",
-    "outputSpec": "Output one number, the total score, given the distribution of all the throws.",
+    "tags": ["Searching", "Binary Search"],
+    "description": "Your Dog is missing! You can't remember what he looks like, but you do know his height. So you went to the nearest animal shelter and asked them to bring all the lost dogs. They have too many dogs! Luckily, they could line up all the dogs in ascending order (of height) and left you to find your dog. Your gut feeling is telling you that your dog is in this shelter, somewhere in this lineup, so your job is to print the index of your dog when given the heights of all the dogs at the shelter (including yours).",
+    "inputSpec": "The first line is the heights of all the dogs (cm) of length n (2 ≤ n 10,000), each space separated \n\nThe second line is the height of your dog",
+    "outputSpec": "Find your dog using the height and print the location (1-index) using O(Log n) time complexity.",
     "samples": [
       {
-        "input": "3\n7\n22",
-        "output": "83"
+        "input": "18 22 25 42 47 50 54 57 60 62 63\n42",
+        "output": "4"
       }
     ],
-    "notes": "3 one-pointer’s = 3 points\n7 two-pointer’s = 7*2 points = 14 points\n22 three-pointer’s = 22*3 points = 66\nTotal = 3 + 14 + 66 = 83 points"
+    "notes": "Solving in a time complexity higher than O(Log n) will result in a Time Limit Exceeded (TLE) error."
   }
