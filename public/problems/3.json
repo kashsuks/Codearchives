@@ -1,0 +1,18 @@
+{
+    "id": "3",
+    "title": "Find the Dog",
+    "difficulty": 1,
+    "timeLimit": "1s",
+    "memoryLimit": "512MB",
+    "tags": ["Searching", "Binary Search"],
+    "description": "Your Dog is missing! You can't remember what he looks like, but you do know his height. So you went to the nearest animal shelter and asked them to bring all the lost dogs. They have too many dogs! Luckily, they could line up all the dogs in ascending order (of height) and left you to find your dog. Your gut feeling is telling you that your dog is in this shelter, somewhere in this lineup, so your job is to print the index of your dog when given the heights of all the dogs at the shelter (including yours).",
+    "inputSpec": "The first line is the heights of all the dogs (cm) of length n (2 ≤ n 10,000), each space separated \n\nThe second line is the height of your dog",
+    "outputSpec": "Find your dog using the height and print the location (1-index) using O(Log n) time complexity.",
+    "samples": [
+      {
+        "input": "18 22 25 42 47 50 54 57 60 62 63\n42",
+        "output": "4"
+      }
+    ],
+    "notes": "Solving in a time complexity higher than O(Log n) will result in a Time Limit Exceeded (TLE) error."
+  }
